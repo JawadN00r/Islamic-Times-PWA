@@ -1,3 +1,4 @@
 temp.txt
 node_modules
 dist
+styles/**/*.css*
