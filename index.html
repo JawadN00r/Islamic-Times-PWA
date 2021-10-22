@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Modern PWA Weather React Application">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <link rel="manifest" href="./manifest.json">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="main-container"><input type="text" class="search" placeholder="Search..." value="">
+            <div class="city">
+                <h2 class="city-name"><span>Dhaka</span><sup>BD</sup></h2>
+                <div class="city-temp">29<sup>°C</sup></div>
+                <div class="info"><img class="city-icon" src="https://openweathermap.org/img/wn/50n@2x.png" alt="haze">
+                    <p>haze</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./serviceworker.js')
+                    .then((reg) => console.log('Success: ', reg.scope))
+                    .catch((err) => console.log('Failure: ', err));
+            })
+        }
+    </script>
+    <!-- <script src="/static/js/bundle.js"></script>
+    <script src="/static/js/0.chunk.js"></script>
+    <script src="/static/js/main.chunk.js"></script> -->
+
+</body>
+
+</html>
