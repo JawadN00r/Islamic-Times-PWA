@@ -26,11 +26,11 @@ function formatAMPM(hours, minutes) {
 }
 
 function getDateIndex() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 0);
-    const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
+    let now = new Date();
+    let start = new Date(now.getFullYear(), 0, 0);
+    let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    let oneDay = 1000 * 60 * 60 * 24;
+    let day = Math.floor(diff / oneDay);
 
     // check leap year
     const isLeapYear = new Date(now.getFullYear(), 1, 29).getMonth() == 1
@@ -93,11 +93,11 @@ function getCurrentHijriDate() {
     let hijri_month = english_hijri_mappings['hijri_month'];
     let hijri_year = english_hijri_mappings['hijri_year'];
 
-    const now = new Date();
-    const start = new Date(english_year, english_month - 1, english_date);
-    const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
+    let now = new Date();
+    let start = new Date(english_year, english_month - 1, english_date);
+    let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    let oneDay = 1000 * 60 * 60 * 24;
+    let day = Math.floor(diff / oneDay);
     hijri_date += day;
     hijri_month = getHijriMonthName(hijri_month);
     return "" + hijri_date + " " + hijri_month + " " + hijri_year;

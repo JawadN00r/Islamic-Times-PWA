@@ -15,8 +15,8 @@ const browsersync = require('browser-sync').create();
 // File paths
 const files = {
     scssPath: 'styles/**/*.scss',
-    jsPath: '**/*.js',
-    // serviceWorkerJsPath: 'serviceworker.js',
+    jsPath: 'scripts/index.js',
+    serviceWorkerJsPath: 'serviceworker.js',
     copyFilePaths: [
         // 'fonts/**/*.*',
         'images/**/*.*',
@@ -27,6 +27,9 @@ const files = {
         // 'package-lock.json',
         'favicon_package/**/*.*',
         'manifest.json',
+        'SalatTimeTable24.minify.json',
+        'english_hijri_mapping.json',
+        'serviceworker.js'
     ]
 };
 
@@ -46,10 +49,10 @@ function copyHtmlTask() {
 
 // Sass task: compiles the style.scss file into style.css
 function scssTaskDist() {
-    return src(files.scssPath, { sourcemaps: true }) // set source and turn on sourcemaps
+    return src(files.scssPath, { sourcemaps: false, base: './' }) // set source and turn on sourcemaps
         .pipe(sass()) // compile SCSS to CSS
-        // .pipe(postcss([autoprefixer(), cssnano()])) // PostCSS plugins
-        .pipe(dest('dist/styles', { sourcemaps: '.' })); // put final CSS in dist folder with sourcemap
+        .pipe(postcss([autoprefixer(), cssnano()])) // PostCSS plugins
+        .pipe(dest('dist')); // put final CSS in dist folder with sourcemap
 }
 
 function scssTask() {
@@ -67,11 +70,11 @@ function jsTaskDist() {
             // files.serviceWorkerJsPath,
             // '!' + 'DinoGame/libraries/**/*.js', // to exclude any specific files
         ],
-        { sourcemaps: true }
+        { sourcemaps: false, base: './' }
     )
         // .pipe(concat('all.js'))
-        // .pipe(terser())
-        .pipe(dest('dist/scripts', { sourcemaps: '.' }));
+        .pipe(terser())
+        .pipe(dest('dist'));
 }
 
 // Cachebust
@@ -167,15 +170,6 @@ exports.default = series(parallel(scssTask, jsTaskDist), cacheBustTaskDist, watc
 
 // Runs all of the above but also spins up a local Browsersync server
 // Run by typing in "gulp bs" on the command line
-exports.bsDist = series(
-    copyHtmlTask,
-    copyResourcesTask,
-    parallel(scssTask, jsTaskDist),
-    cacheBustTaskDist,
-    browserSyncServeDist,
-    bsWatchTask
-);
-
 exports.bs = series(
     scssTask,
     cacheBustTask,
@@ -186,6 +180,15 @@ exports.bs = series(
 exports.build = series(
     copyHtmlTask,
     copyResourcesTask,
-    parallel(scssTask, jsTaskDist),
+    parallel(scssTaskDist, jsTaskDist),
     cacheBustTaskDist
+);
+
+exports.bsDist = series(
+    copyHtmlTask,
+    copyResourcesTask,
+    parallel(scssTaskDist, jsTaskDist),
+    cacheBustTaskDist,
+    browserSyncServeDist,
+    bsWatchTask
 );
