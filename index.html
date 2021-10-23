@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Weather App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1634977080257">
+    <link rel="stylesheet" href="styles/style.css?cb=1634982788858">
 
 </head>
 
@@ -27,26 +27,46 @@
             <table class="styled-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Points</th>
+                        <th>October 23, 2021</th>
+                        <th>Rabiul Awal 15, 1443</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Dom</td>
-                        <td>6000</td>
+                        <td>সাহরীর শেষ সময়</td>
+                        <td id="sahri-end">6000</td>
+                    </tr>
+                    <tr>
+                        <td>ফজর শুরু</td>
+                        <td id="fajr-start">6000</td>
                     </tr>
                     <tr class="active-row">
-                        <td>Melissa</td>
-                        <td>5150</td>
+                        <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
+                        <td id="sunrise-forbidden">5150</td>
                     </tr>
                     <tr>
-                        <td>Dom</td>
-                        <td>6000</td>
+                        <td>মধ্যাহ্ন ও নামাজের নিষিদ্ধ সময়</td>
+                        <td id="noon-forbidden">5150</td>
                     </tr>
                     <tr>
-                        <td>Dom</td>
-                        <td>6000</td>
+                        <td>যোহর শুরু</td>
+                        <td id="johor-start">6000</td>
+                    </tr>
+                    <tr>
+                        <td>আসর শুরু</td>
+                        <td id="asr-start">6000</td>
+                    </tr>
+                    <tr>
+                        <td>সূর্যাস্ত ও নামাজের নিষিদ্ধ সময়</td>
+                        <td id="sunset-forbidden">6000</td>
+                    </tr>
+                    <tr>
+                        <td>মাগরিব শুরু</td>
+                        <td id="magrib-start">6000</td>
+                    </tr>
+                    <tr>
+                        <td>এশা শুরু</td>
+                        <td id="isha-start">6000</td>
                     </tr>
                     <!-- and so on... -->
                 </tbody>
@@ -56,7 +76,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1634977080257')
+                navigator.serviceWorker.register('serviceworker.js?cb=1634982788858')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
