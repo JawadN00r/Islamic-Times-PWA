@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Weather App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1634958813855">
+    <link rel="stylesheet" href="styles/style.css?cb=1634976602978">
 
 </head>
 
@@ -17,19 +17,46 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <div class="main-container"><input type="text" class="search" placeholder="Search..." value="">
-            <div class="city">
-                <!-- <h2 class="city-name"><span>Dhaka</span><sup>BD</sup></h2>
+            <!-- <div class="city">
+                <h2 class="city-name"><span>Dhaka</span><sup>BD</sup></h2>
                 <div class="city-temp">29<sup>°C</sup></div>
                 <div class="info"><img class="city-icon" src="https://openweathermap.org/img/wn/50n@2x.png" alt="haze">
                     <p>haze</p>
-                </div> -->
-            </div>
+                </div>
+            </div> -->
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dom</td>
+                        <td>6000</td>
+                    </tr>
+                    <tr class="active-row">
+                        <td>Melissa</td>
+                        <td>5150</td>
+                    </tr>
+                    <tr>
+                        <td>Dom</td>
+                        <td>6000</td>
+                    </tr>
+                    <tr>
+                        <td>Dom</td>
+                        <td>6000</td>
+                    </tr>
+                    <!-- and so on... -->
+                </tbody>
+            </table>
         </div>
     </div>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1634958813855')
+                navigator.serviceWorker.register('serviceworker.js?cb=1634976602978')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })

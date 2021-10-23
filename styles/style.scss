@@ -31,58 +31,97 @@ body,
     background: rgba(250, 250, 250, 0.85);
 }
 
-.city {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 40px 8%;
-    border-radius: 20px;
-    background: rgba(250, 250, 250, 0.85);
-    box-shadow: 10px 10px 5px 0px rgba(15, 15, 15, 0.404);
+// .city {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     padding: 40px 8%;
+//     border-radius: 20px;
+//     background: rgba(250, 250, 250, 0.85);
+//     box-shadow: 10px 10px 5px 0px rgba(15, 15, 15, 0.404);
+// }
+
+// p {
+//     margin-top: 10px;
+//     text-transform: uppercase;
+//     letter-spacing: 0.05em;
+// }
+
+// .city-temp {
+//     font-size: 5rem;
+//     font-weight: bold;
+//     margin-top: 10px;
+//     color: #1e2432;
+//     text-align: center;
+// }
+
+// .city sup {
+//     font-size: 0.5em;
+// }
+
+// .city-name {
+//     font-size: 2em;
+// }
+
+// .city-name sup {
+//     padding: 0.2em 0.6em;
+//     margin-left: 0.2em;
+//     border-radius: 30px;
+//     color: #fff;
+//     background: #ff8c00;
+// }
+
+// .city-icon {
+//     margin-top: 10px;
+//     width: 100px;
+//     height: 100px;
+// }
+
+// .info {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+// }
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-p {
-    margin-top: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
 }
 
-.city-temp {
-    font-size: 5rem;
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    background-color: #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
     font-weight: bold;
-    margin-top: 10px;
-    color: #1e2432;
-    text-align: center;
+    color: #009879;
 }
 
-.city sup {
-    font-size: 0.5em;
-}
-
-.city-name {
-    font-size: 2em;
-}
-
-.city-name sup {
-    padding: 0.2em 0.6em;
-    margin-left: 0.2em;
-    border-radius: 30px;
-    color: #fff;
-    background: #ff8c00;
-}
-
-.city-icon {
-    margin-top: 10px;
-    width: 100px;
-    height: 100px;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 @media only screen and (max-width: 600px) {
     .search {
