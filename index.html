@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Weather App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1634994403067">
+    <link rel="stylesheet" href="styles/style.css?cb=1634995482061">
 
 </head>
 
@@ -41,7 +41,7 @@
                         <td>ফজর শুরু</td>
                         <td id="fajr-start">6000</td>
                     </tr>
-                    <tr class="active-row">
+                    <tr>
                         <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="sunrise-forbidden">5150</td>
                     </tr>
@@ -77,7 +77,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1634994403067')
+                navigator.serviceWorker.register('serviceworker.js?cb=1634995482061')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
