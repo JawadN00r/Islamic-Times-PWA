@@ -2,14 +2,14 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="./images/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="Modern PWA Weather React Application">
+    <meta name="description" content="Islamic Times PWA">
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1634995482061">
+    <title>Islamic Time App</title>
+    <link rel="stylesheet" href="styles/style.css?cb=1635001314906">
 
 </head>
 
@@ -33,39 +33,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr id="sahri-end-tr">
                         <td>সাহরীর শেষ সময়</td>
                         <td id="sahri-end">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="fajr-start-tr">
                         <td>ফজর শুরু</td>
                         <td id="fajr-start">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="sunrise-forbidden-tr">
                         <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="sunrise-forbidden">5150</td>
                     </tr>
-                    <tr>
+                    <tr id="noon-forbidden-tr">
                         <td>মধ্যাহ্ন ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="noon-forbidden">5150</td>
                     </tr>
-                    <tr>
+                    <tr id="duhr-start-tr">
                         <td>যোহর শুরু</td>
                         <td id="duhr-start">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="asr-start-tr">
                         <td>আসর শুরু</td>
                         <td id="asr-start">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="sunset-forbidden-tr">
                         <td>সূর্যাস্ত ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="sunset-forbidden">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="magrib-start-tr">
                         <td>মাগরিব শুরু</td>
                         <td id="magrib-start">6000</td>
                     </tr>
-                    <tr>
+                    <tr id="isha-start-tr">
                         <td>এশা শুরু</td>
                         <td id="isha-start">6000</td>
                     </tr>
@@ -77,7 +77,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1634995482061')
+                navigator.serviceWorker.register('serviceworker.js?cb=1635001314906')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })

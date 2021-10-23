@@ -1,11 +1,12 @@
 {
-    "short_name": "Weather App",
-    "name": "Weather App PWA",
+    "short_name": "Islamic Time PWA",
+    "name": "Islamic Time PWA",
     "icons": [
         {
             "src": "/images/logo.png",
             "type": "image/png",
-            "sizes": "1024x1024"
+            "sizes": "512x512",
+            "purpose": "any maskable"
         }
     ],
     "start_url": ".",
