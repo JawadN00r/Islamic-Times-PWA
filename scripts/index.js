@@ -6,6 +6,8 @@ const FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE = -13;
 const FORBIDDEN_TIME_END_BEFORE_MAGHRIB_IN_MINUTE = -3;
 
 const defaultDate = "1970-01-01 ";
+const salatTimeTable24 = JSON.parse(salat_time_data);
+const english_hijri_mappings = JSON.parse(english_hijri_mapping);
 
 function addMinutes(hours, minutes, minsToAdd) {
     var time = "" + hours + ":" + minutes;
@@ -40,12 +42,80 @@ function getDateIndex() {
 
 }
 
-const salatTimeTable24 = JSON.parse(data);
+function getHijriMonthName(monthNo) {
+    let monthName = "";
+    switch (monthNo) {
+        case 1:
+            monthName = "মহররম";
+            break;
+        case 2:
+            monthName = "সফর";
+            break;
+        case 3:
+            monthName = "রবিউল আউয়াল";
+            break;
+        case 4:
+            monthName = "রবিউস সানি";
+            break;
+        case 5:
+            monthName = "জমাদিউল আউয়াল";
+            break;
+        case 6:
+            monthName = "জমাদিউস সানি";
+            break;
+        case 7:
+            monthName = "রজব";
+            break;
+        case 8:
+            monthName = "শাবান";
+            break;
+        case 9:
+            monthName = "রমজান";
+            break;
+        case 10:
+            monthName = "শাওয়াল";
+            break;
+        case 11:
+            monthName = "জিলকদ";
+            break;
+        case 12:
+            monthName = "জিলহজ";
+            break;
+    }
+    return monthName;
+}
+
+function getCurrentHijriDate() {
+    let english_date = english_hijri_mappings['english_date'];
+    let english_month = english_hijri_mappings['english_month'];
+    let english_year = english_hijri_mappings['english_year'];
+    let hijri_date = english_hijri_mappings['hijri_date'];
+    let hijri_month = english_hijri_mappings['hijri_month'];
+    let hijri_year = english_hijri_mappings['hijri_year'];
+
+    const now = new Date();
+    const start = new Date(english_year, english_month - 1, english_date);
+    const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    const oneDay = 1000 * 60 * 60 * 24;
+    const day = Math.floor(diff / oneDay);
+    hijri_date += day;
+    hijri_month = getHijriMonthName(hijri_month);
+    return "" + hijri_date + " " + hijri_month + " " + hijri_year;
+}
+
 
 let day = getDateIndex();
 const salatTimeToday = salatTimeTable24[day];
 
-var hour, minute, meridian, time, timeStart, timeEnd;
+var hour, minute, time, timeStart, timeEnd;
+// date-english
+document.getElementById('date-english').innerHTML = new Date().toDateString();
+
+// date-hijri
+var hirji_date_today = getCurrentHijriDate();
+document.getElementById('date-hijri').innerHTML = hirji_date_today;
+
+// sahri-end
 hour = salatTimeToday['sahriEndHour'];
 minute = salatTimeToday['sahriEndMinute'];
 time = formatAMPM(hour, minute);
