@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Islamic Times App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1635004385318">
+    <link rel="stylesheet" href="styles/style.css?cb=1635064226009">
 
 </head>
 
@@ -45,8 +45,12 @@
                         <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="sunrise-forbidden">5150</td>
                     </tr>
+                    <!-- <tr id="ishrak-tr">
+                        <td></td>
+                        <td id="ishrak"></td>
+                    </tr> -->
                     <tr id="noon-forbidden-tr">
-                        <td>মধ্যাহ্ন ও নামাজের নিষিদ্ধ সময়</td>
+                        <td>দ্বিপ্রহর ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="noon-forbidden">5150</td>
                     </tr>
                     <tr id="duhr-start-tr">
@@ -70,7 +74,11 @@
                         <td id="isha-start">6000</td>
                     </tr>
                     <tr id="info-tr">
-                        <td colspan="2" id="info">* শুধুমাত্র ঢাকা জেলার জন্য প্রযোজ্য</td>
+                        <td colspan="2" id="info"><b>* হিজরি তারিখ (বাংলাদেশ ইসলামিক ফাউন্ডেশন কর্তৃক) চাঁদ দেখার উপর
+                                নির্ভরশীল।</b><br>
+                            <b>* নামাজের সময়ের তথ্যসূত্র-</b><br> ইসলামিক রিসার্চ সেন্টার বাংলাদেশ কর্তৃক প্রণীত
+                            সাহরী-ইফতার ও নামাজের স্থায়ী সময়সূচী (শুধুমাত্র ঢাকা জেলার জন্য)।
+                        </td>
                     </tr>
                     <!-- and so on... -->
                 </tbody>
@@ -80,7 +88,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1635004385318')
+                navigator.serviceWorker.register('serviceworker.js?cb=1635064226009')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
