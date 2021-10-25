@@ -1,5 +1,14 @@
 const CACHE_NAME = "version-1";
-const urlsToCache = ['index.html'];
+const assetsToCache = [
+    'index.html',
+    // 'scripts',
+    // 'images',
+    // 'styles',
+    'manifest.json',
+    'serviceworker.js',
+    'SalatTimeTable24.minify.json',
+    'english_hijri_mapping.json',
+];
 
 const self = this;
 
@@ -10,20 +19,36 @@ self.addEventListener('install', (event) => {
             .then((cache) => {
                 console.log('Opened cache');
 
-                return cache.addAll(urlsToCache);
+                // return cache.addAll(assetsToCache);
             })
     )
 });
 
 // Listen for requests
-self.addEventListener('fetch', (event) => {
+// self.addEventListener('fetch', (event) => {
+//     event.respondWith(
+//         caches.match(event.request)
+//             .then(() => {
+//                 return fetch(event.request)
+//                     .catch(() => caches.match('index.html'))
+//             })
+//     )
+// });
+
+self.addEventListener('fetch', function (event) {
     event.respondWith(
-        caches.match(event.request)
-            .then(() => {
-                return fetch(event.request)
-                    .catch(() => caches.match('index.html'))
-            })
-    )
+        caches.open('mysite-dynamic').then(function (cache) {
+            return cache.match(event.request).then(function (response) {
+                return (
+                    response ||
+                    fetch(event.request).then(function (response) {
+                        cache.put(event.request, response.clone());
+                        return response;
+                    })
+                );
+            });
+        }),
+    );
 });
 
 // Activate the SW

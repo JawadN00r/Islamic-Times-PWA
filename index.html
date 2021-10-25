@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Islamic Times App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1635139953240">
+    <link rel="stylesheet" href="styles/style.css">
 
 </head>
 
@@ -90,7 +90,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1635139953240')
+                navigator.serviceWorker.register('serviceworker.js')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
