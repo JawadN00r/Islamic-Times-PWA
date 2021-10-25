@@ -85,6 +85,35 @@ function getHijriMonthName(monthNo) {
     return monthName;
 }
 
+function getCurrentDayName() {
+    let dayName = "";
+    let dayNo = new Date().getDay();
+    switch (dayNo) {
+        case 0:
+            dayName = "রবি";
+            break;
+        case 1:
+            dayName = "সোম";
+            break;
+        case 2:
+            dayName = "মঙ্গল";
+            break;
+        case 3:
+            dayName = "বুধ";
+            break;
+        case 4:
+            dayName = "বৃহ:";
+            break;
+        case 5:
+            dayName = "শুক্র";
+            break;
+        case 6:
+            dayName = "শনি";
+            break;
+    }
+    return dayName;
+}
+
 function getCurrentHijriDate() {
     let english_date = english_hijri_mappings['english_date'];
     let english_month = english_hijri_mappings['english_month'];
@@ -103,17 +132,22 @@ function getCurrentHijriDate() {
     return "" + hijri_date + " " + hijri_month + " " + hijri_year;
 }
 
+function getCurrentEnglishDate() {
+    let date = new Date()
+    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+}
+
 
 let day = getDateIndex();
 const salatTimeToday = salatTimeTable24[day];
 
 var hour, minute, time, timeStart, timeEnd;
-// date-english
-document.getElementById('date-english').innerHTML = new Date().toDateString();
-
 // date-hijri
 var hirji_date_today = getCurrentHijriDate();
-document.getElementById('date-hijri').innerHTML = hirji_date_today;
+document.getElementById('date-hijri').innerHTML = getCurrentDayName() + ", " + hirji_date_today;
+
+// date-english
+document.getElementById('date-english').innerHTML = "(" + getCurrentEnglishDate() + ")";
 
 // sahri-end
 hour = salatTimeToday['sahriEndHour'];

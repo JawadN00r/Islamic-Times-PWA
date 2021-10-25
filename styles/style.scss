@@ -99,12 +99,20 @@ body,
     thead tr {
         background-color: #009879;
         color: #ffffff;
-        text-align: left;
+        text-align: center;
+
+        span {
+            font-size: 1.1em;
+        }
+
+        sub {
+            font-size: 00.8em;
+        }
     }
 
     th,
     td {
-        padding: 12px 15px;
+        padding: 8px 15px;
     }
 
     tbody {

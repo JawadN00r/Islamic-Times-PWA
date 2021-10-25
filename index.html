@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Islamic Times App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1635064226009">
+    <link rel="stylesheet" href="styles/style.css?cb=1635137945840">
 
 </head>
 
@@ -28,8 +28,10 @@
             <table class="styled-table">
                 <thead>
                     <tr>
-                        <th id="date-english">October 23, 2021</th>
-                        <th id="date-hijri">Rabiul Awal 15, 1443</th>
+                        <!-- <th id="date-english">October 23, 2021</th> -->
+                        <th colspan="2"><span id="date-hijri"> Rabiul Awal 15, 1443</span> <sub
+                                id="date-english">October 23,
+                                2021</sub></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,8 +76,8 @@
                         <td id="isha-start">6000</td>
                     </tr>
                     <tr id="info-tr">
-                        <td colspan="2" id="info"><b>* হিজরি তারিখ (বাংলাদেশ ইসলামিক ফাউন্ডেশন কর্তৃক) চাঁদ দেখার উপর
-                                নির্ভরশীল।</b><br>
+                        <td colspan="2" id="info">* হিজরি তারিখ (বাংলাদেশ ইসলামিক ফাউন্ডেশন কর্তৃক)
+                            চাঁদ দেখার উপর নির্ভরশীল।<br>
                             <b>* নামাজের সময়ের তথ্যসূত্র-</b><br> ইসলামিক রিসার্চ সেন্টার বাংলাদেশ কর্তৃক প্রণীত
                             সাহরী-ইফতার ও নামাজের স্থায়ী সময়সূচী (শুধুমাত্র ঢাকা জেলার জন্য)।
                         </td>
@@ -88,7 +90,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1635064226009')
+                navigator.serviceWorker.register('serviceworker.js?cb=1635137945840')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
@@ -96,7 +98,7 @@
     </script>
     <script type="text/javascript" src="SalatTimeTable24.minify.json"></script>
     <script type="text/javascript" src="english_hijri_mapping.json"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/index.js" defer></script>
     <!-- <script src="/static/js/bundle.js"></script>
     <script src="/static/js/0.chunk.js"></script>
     <script src="/static/js/main.chunk.js"></script> -->
