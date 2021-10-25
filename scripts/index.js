@@ -3,7 +3,7 @@ const FORBIDDEN_TIME_END_AFTER_SUNRISE_IN_MINUTE = 10;
 const FORBIDDEN_TIME_START_BEFORE_NOON_IN_MINUTE = -3;
 const FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE = 3;
 const FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE = -13;
-const FORBIDDEN_TIME_END_BEFORE_MAGHRIB_IN_MINUTE = -3;
+const SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE = -3;
 
 const defaultDate = "1970-01-01 ";
 const salatTimeTable24 = JSON.parse(salat_time_data);
@@ -88,6 +88,10 @@ function getHijriMonthName(monthNo) {
 function getCurrentDayName() {
     let dayName = "";
     let dayNo = new Date().getDay();
+    // +1 after sunset
+    if (isNowAfterSunset()) {
+        dayNo = (dayNo + 1) % 7;
+    }
     switch (dayNo) {
         case 0:
             dayName = "রবি";
@@ -128,8 +132,32 @@ function getCurrentHijriDate() {
     let oneDay = 1000 * 60 * 60 * 24;
     let day = Math.floor(diff / oneDay);
     hijri_date += day;
+
+    // +1 after sunset
+    if (isNowAfterSunset()) {
+        hijri_date += 1;
+    }
+
+
     hijri_month = getHijriMonthName(hijri_month);
     return "" + hijri_date + " " + hijri_month + " " + hijri_year;
+}
+
+function isNowAfterSunset() {
+    let now = new Date();
+    let hour = salatTimeToday['magribStartHour'];
+    let minute = salatTimeToday['magribStartMinute'];
+    let sunset_time = "" + hour + ":" + minute;
+    sunset_time = new Date(defaultDate + sunset_time);
+    sunset_time = new Date(sunset_time.getTime() + SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE * 60000);
+
+    let nowTimeInDefaultDate = new Date(defaultDate + now.getHours() + ":" + now.getMinutes());
+
+    if (nowTimeInDefaultDate >= sunset_time) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function getCurrentEnglishDate() {
@@ -191,7 +219,7 @@ document.getElementById('asr-start').innerHTML = time;
 hour = salatTimeToday['magribStartHour'];
 minute = salatTimeToday['magribStartMinute'];
 timeStart = addMinutes(hour, minute, FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE);
-timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_BEFORE_MAGHRIB_IN_MINUTE);
+timeEnd = formatAMPM(hour, minute);
 time = timeStart + " - " + timeEnd;
 document.getElementById('sunset-forbidden').innerHTML = time;
 
