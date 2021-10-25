@@ -87,7 +87,7 @@ function cacheBustTaskDist() {
 
 function cacheBustTask() {
     var cbString = new Date().getTime();
-    return src('index.html', { base: './' })
+    return src(['index.html', 'serviceworker.js'], { base: './' })
         .pipe(replace(/cb=\d+/g, 'cb=' + cbString))
         .pipe(dest('.'));
 }

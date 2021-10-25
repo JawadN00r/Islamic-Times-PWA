@@ -8,6 +8,7 @@ const SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE = -3;
 const defaultDate = "1970-01-01 ";
 const salatTimeTable24 = JSON.parse(salat_time_data);
 const english_hijri_mappings = JSON.parse(english_hijri_mapping);
+let swRegistration = null;
 
 function addMinutes(hours, minutes, minsToAdd) {
     var time = "" + hours + ":" + minutes;
@@ -165,6 +166,67 @@ function getCurrentEnglishDate() {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
 }
 
+function initializeApp() {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+        console.log("Service Worker and Push is supported");
+
+        //Register the service worker
+        navigator.serviceWorker
+            .register("../../serviceworker.js")
+            .then(swReg => {
+                console.log("Service Worker is registered", swReg);
+
+                swRegistration = swReg;
+                initializeUi();
+            })
+            .catch(error => {
+                console.error("Service Worker Error", error);
+            });
+    } else {
+        console.warn("Push messaging is not supported");
+        notificationButton.textContent = "Push Not Supported";
+    }
+}
+
+function initializeUi() {
+    notificationButton.addEventListener("click", () => {
+        displayNotification();
+    });
+}
+
+function displayNotification() {
+    if (window.Notification && Notification.permission === "granted") {
+        notification();
+    }
+    // If the user hasn't told if he wants to be notified or not
+    // Note: because of Chrome, we are not sure the permission property
+    // is set, therefore it's unsafe to check for the "default" value.
+    else if (window.Notification && Notification.permission !== "denied") {
+        Notification.requestPermission(status => {
+            if (status === "granted") {
+                notification();
+            } else {
+                alert("You denied or dismissed permissions to notifications.");
+            }
+        });
+    } else {
+        // If the user refuses to get notified
+        alert(
+            "You denied permissions to notifications. Please go to your browser or phone setting to allow notifications."
+        );
+    }
+}
+
+function notification() {
+    const options = {
+        body: "Testing Our Notification",
+        icon: "./bell.png"
+    };
+    swRegistration.showNotification("PWA Notification!", options);
+}
+
+const notificationButton = document.getElementById("enableNotifications");
+initializeApp();
 
 let day = getDateIndex();
 const salatTimeToday = salatTimeTable24[day];

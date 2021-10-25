@@ -7,9 +7,9 @@ const assetsToCache = [
     '/images/bg.jpeg',
     '/images/logo.png',
     '/manifest.json',
-    '/scripts/index.js',
-    '/styles/style.css',
-    '/serviceworker.js'
+    '/scripts/index.js?cb=1635158803201',
+    '/styles/style.css?cb=1635158803201',
+    '/serviceworker.js?cb=1635158803201'
 ];
 
 const self = this;
@@ -42,11 +42,10 @@ self.addEventListener('fetch', function (event) {
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.match(event.request).then(function (response) {
                 return (
-                    response ||
                     fetch(event.request).then(function (response) {
                         cache.put(event.request, response.clone());
                         return response;
-                    })
+                    }) || response
                 );
             });
         }),
