@@ -197,6 +197,10 @@ timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_AFTER_SUNRISE_IN_MINUTE);
 time = timeStart + " - " + timeEnd;
 document.getElementById('sunrise-forbidden').innerHTML = time;
 
+// ishrak
+time = timeEnd;
+document.getElementById('ishrak').innerHTML = time;
+
 //noon-forbidden
 hour = salatTimeToday['noonHour'];
 minute = salatTimeToday['noonMinute'];

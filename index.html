@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Islamic Times App</title>
-    <link rel="stylesheet" href="styles/style.css?cb=1635139327809">
+    <link rel="stylesheet" href="styles/style.css?cb=1635139953240">
 
 </head>
 
@@ -47,10 +47,10 @@
                         <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="sunrise-forbidden">5150</td>
                     </tr>
-                    <!-- <tr id="ishrak-tr">
-                        <td></td>
+                    <tr id="ishrak-tr">
+                        <td>ইশরাক শুরু</td>
                         <td id="ishrak"></td>
-                    </tr> -->
+                    </tr>
                     <tr id="noon-forbidden-tr">
                         <td>দ্বিপ্রহর ও নামাজের নিষিদ্ধ সময়</td>
                         <td id="noon-forbidden">5150</td>
@@ -90,7 +90,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js?cb=1635139327809')
+                navigator.serviceWorker.register('serviceworker.js?cb=1635139953240')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((err) => console.log('Failure: ', err));
             })
