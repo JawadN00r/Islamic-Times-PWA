@@ -1,13 +1,15 @@
 const CACHE_NAME = "version-1";
 const assetsToCache = [
-    'index.html',
-    // 'scripts',
-    // 'images',
-    // 'styles',
-    'manifest.json',
-    'serviceworker.js',
-    'SalatTimeTable24.minify.json',
-    'english_hijri_mapping.json',
+    '/',
+    '/SalatTimeTable24.minify.json',
+    '/english_hijri_mapping.json',
+    '/index.html',
+    '/images/bg.jpeg',
+    '/images/logo.png',
+    '/manifest.json',
+    '/scripts/index.js',
+    '/styles/style.css',
+    '/serviceworker.js'
 ];
 
 const self = this;
@@ -19,7 +21,7 @@ self.addEventListener('install', (event) => {
             .then((cache) => {
                 console.log('Opened cache');
 
-                // return cache.addAll(assetsToCache);
+                return cache.addAll(assetsToCache);
             })
     )
 });
@@ -37,7 +39,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', function (event) {
     event.respondWith(
-        caches.open('mysite-dynamic').then(function (cache) {
+        caches.open(CACHE_NAME).then(function (cache) {
             return cache.match(event.request).then(function (response) {
                 return (
                     response ||
