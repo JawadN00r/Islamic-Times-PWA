@@ -1,6 +1,6 @@
 {
-    "short_name": "Islamic Times PWA",
-    "name": "Islamic Times PWA",
+    "short_name": "-Islamic Times PWA-",
+    "name": "-Islamic Times PWA",
     "icons": [
         {
             "src": "/images/logo.png",
@@ -10,7 +10,7 @@
         }
     ],
     "start_url": ".",
-    "display": "standalone",
+    "display": "fullscreen",
     "theme_color": "#ffffff",
     "background_color": "#ffffff"
 }
