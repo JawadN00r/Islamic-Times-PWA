@@ -21,7 +21,7 @@ function formatAMPM(hours, minutes) {
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0' + minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
+    var strTime = hours + ':' + minutes + '' + ampm;
     return strTime;
 }
 
@@ -223,7 +223,7 @@ document.getElementById('asr-start').innerHTML = time;
 hour = salatTimeToday['magribStartHour'];
 minute = salatTimeToday['magribStartMinute'];
 timeStart = addMinutes(hour, minute, FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE);
-timeEnd = formatAMPM(hour, minute);
+timeEnd = addMinutes(hour, minute, SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE);
 time = timeStart + " - " + timeEnd;
 document.getElementById('sunset-forbidden').innerHTML = time;
 

@@ -96,10 +96,17 @@ body,
     width: 50%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
-    thead tr {
-        background-color: #009879;
-        color: #ffffff;
-        text-align: center;
+    thead {
+        tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 2% 15px;
+        }
 
         span {
             font-size: 1.1em;
@@ -112,7 +119,7 @@ body,
 
     th,
     td {
-        padding: 8px 15px;
+        padding: 1% 15px;
     }
 
     tbody {
