@@ -105,7 +105,7 @@ body,
 
         th,
         td {
-            padding: 2% 15px;
+            padding: 2vh 15px;
         }
 
         span {
@@ -119,7 +119,7 @@ body,
 
     th,
     td {
-        padding: 1% 15px;
+        padding: 1vh 15px;
     }
 
     tbody {
@@ -155,11 +155,12 @@ body,
     }
 }
 
-@media only screen {
+@media screen {
     .styled-table {
         padding: 20px 15%;
         width: 85%;
         max-width: 800px;
+        // height: 80vh;
     }
 
     .city {
