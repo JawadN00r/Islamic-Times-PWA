@@ -5,7 +5,7 @@
         {
             "src": "/images/logo.png",
             "type": "image/png",
-            "sizes": "1002x756",
+            "sizes": "1024x1024",
             "purpose": "any maskable"
         }
     ],
