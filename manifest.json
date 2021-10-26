@@ -1,6 +1,6 @@
 {
-    "short_name": "-Islamic Times PWA-",
-    "name": "-Islamic Times PWA",
+    "short_name": "Islamic Times",
+    "name": "ইসলামিক মূল্যবোধে উজ্জীবিত",
     "icons": [
         {
             "src": "/images/logo.png",
@@ -10,7 +10,7 @@
         }
     ],
     "start_url": ".",
-    "display": "fullscreen",
+    "display": "standalone",
     "theme_color": "#ffffff",
     "background_color": "#ffffff"
 }
