@@ -187,7 +187,7 @@ body,
 @media screen and (min-height: 800px) {
     .styled-table {
         // padding: 20px 7.5vw;
-        max-height: 85vh;
+        max-height: 90vh;
         // width: 85%;
         max-width: 85vw;
 
@@ -195,6 +195,7 @@ body,
 
             th {
                 padding: 2vh 15px;
+                color: #0a1f44;
             }
         }
 
@@ -205,7 +206,6 @@ body,
 
             td {
                 padding: 0.9vh 15px;
-
             }
         }
     }
