@@ -154,6 +154,20 @@ body,
     }
 }
 
+#feedback {
+    background-color: #31B0D5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border-color: #46b8da;
+}
+
+#mybutton {
+    position: fixed;
+    bottom: -4px;
+    right: 10px;
+}
+
 @media screen {
     .styled-table {
         // padding: 20px 7.5vw;
@@ -185,6 +199,8 @@ body,
 }
 
 @media screen and (min-height: 800px) {
+
+    //samsung a30
     .styled-table {
         // padding: 20px 7.5vw;
         max-height: 90vh;
@@ -194,7 +210,7 @@ body,
         thead {
 
             th {
-                padding: 2vh 15px;
+                padding: 1.8vh 15px;
                 // color: #0a1f44;
             }
         }
