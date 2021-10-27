@@ -89,11 +89,9 @@ body,
 
 .styled-table {
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 1.2em;
     font-family: sans-serif;
     // min-width: 400px;
-    width: 50%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
     thead {
@@ -103,8 +101,7 @@ body,
             text-align: center;
         }
 
-        th,
-        td {
+        th {
             padding: 2vh 15px;
         }
 
@@ -117,10 +114,7 @@ body,
         }
     }
 
-    th,
-    td {
-        padding: 1vh 15px;
-    }
+
 
     tbody {
         tr {
@@ -131,6 +125,10 @@ body,
         // tr:nth-of-type(even) {
         //     background-color: #f3f3f3;
         // }
+
+        td {
+            padding: 1vh 15px;
+        }
 
         tr:last-of-type {
             border-bottom: 2px solid #009879;
@@ -157,13 +155,49 @@ body,
 
 @media screen {
     .styled-table {
-        padding: 20px 15%;
-        width: 85%;
-        max-width: 800px;
-        // height: 80vh;
-    }
+        // padding: 20px 7.5vw;
+        max-height: 85vh;
+        // width: 85%;
+        max-width: 85vw;
+        overflow: auto;
+        box-sizing: border-box;
+        display: block;
 
-    .city {
-        padding: 40px 20%;
+        thead {
+
+            th {
+                padding: 1.2vh 15px;
+            }
+        }
+
+        tbody {
+
+            td {
+                padding: 0.7vh 15px;
+            }
+        }
+    }
+}
+
+@media screen and (min-height: 800px) {
+    .styled-table {
+        // padding: 20px 7.5vw;
+        max-height: 85vh;
+        // width: 85%;
+        max-width: 85vw;
+
+        thead {
+
+            th {
+                padding: 2vh 15px;
+            }
+        }
+
+        tbody {
+
+            td {
+                padding: 1vh 15px;
+            }
+        }
     }
 }
