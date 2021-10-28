@@ -12,6 +12,15 @@ const assetsToCache = [
     '/serviceworker.js'
 ];
 
+const assetsToRequest = [
+    '/english_hijri_mapping.json',
+    '/index.html',
+    '/manifest.json',
+    '/scripts/index.js',
+    '/styles/style.css',
+    '/serviceworker.js'
+];
+
 const self = this;
 
 // Install SW
@@ -38,6 +47,7 @@ self.addEventListener('install', (event) => {
 // });
 
 // cache first, if miss fetch
+
 // self.addEventListener('fetch', function (event) {
 //     event.respondWith(
 //         caches.open(CACHE_NAME).then(function (cache) {
@@ -68,6 +78,48 @@ self.addEventListener('fetch', function (event) {
         }),
     );
 });
+
+// // network first, if network put updated content in cache
+// self.addEventListener('fetch', function (event) {
+//     event.respondWith(
+//         caches.open(CACHE_NAME).then(function (cache) {
+//             return cache.match(event.request).then(function (response) {
+//                 var fetchPromise = fetch(event.request).then(function (networkResponse) {
+//                     cache.put(event.request, networkResponse.clone());
+//                     return networkResponse;
+//                 });
+//                 return fetchPromise || response;
+//             });
+//         }),
+//     );
+// });
+
+// // specific assets to fetch
+// // network first, if network put updated content in cache
+// self.addEventListener('fetch', function (event) {
+//     event.respondWith(
+//         caches.open(CACHE_NAME).then(function (cache) {
+//             return cache.match(event.request).then(function (response) {
+//                 var requestedAsset = event.request.url.split(event.request.referrer).pop();
+//                 if (!requestedAsset) {
+//                     requestedAsset = '/';
+//                 } else if (requestedAsset !== '/') {
+//                     requestedAsset = "/" + requestedAsset;
+//                 }
+//                 if (assetsToRequest.includes(requestedAsset)) {
+//                     var fetchPromise = fetch(event.request).then(function (networkResponse) {
+//                         cache.put(event.request, networkResponse.clone());
+//                         return networkResponse;
+//                     });
+//                     return fetchPromise || response;
+//                 } else {
+//                     return response;
+//                 }
+
+//             });
+//         }),
+//     );
+// });
 
 // Activate the SW
 self.addEventListener('activate', (event) => {

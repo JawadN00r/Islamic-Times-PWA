@@ -67,7 +67,7 @@ function jsTaskDist() {
     return src(
         [
             files.jsPath,
-            // files.serviceWorkerJsPath,
+            files.serviceWorkerJsPath,
             // '!' + 'DinoGame/libraries/**/*.js', // to exclude any specific files
         ],
         { sourcemaps: false, base: './' }
