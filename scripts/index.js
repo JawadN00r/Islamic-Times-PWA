@@ -5,7 +5,7 @@ const FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE = 3;
 const FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE = -13;
 const SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE = -3;
 
-const defaultDate = "1970-01-01 ";
+const defaultDate = new Date().toDateString() + " ";
 const salatTimeTable24 = JSON.parse(salat_time_data);
 const english_hijri_mappings = JSON.parse(english_hijri_mapping);
 
