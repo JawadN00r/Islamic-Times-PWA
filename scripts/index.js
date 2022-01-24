@@ -61,7 +61,7 @@ function getHijriMonthName(monthNo) {
             monthName = "জমাদিউল আউয়াল";
             break;
         case 6:
-            monthName = "জমাদিউস সানি";
+            monthName = "জুমাদাল উখরা";
             break;
         case 7:
             monthName = "রজব";
