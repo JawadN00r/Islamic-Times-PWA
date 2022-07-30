@@ -154,7 +154,7 @@ function getCurrentHijriDate() {
   } else if (hijri_date == 0) {
     hijri_date = 30;
     hijri_month -= 1;
-    // if month > 12, rotate
+    // if month < 1, rotate
     if (hijri_month < 1) {
       hijri_month = 12;
       hijri_year -= 1;
