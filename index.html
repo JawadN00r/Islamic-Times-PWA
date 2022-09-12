@@ -1,171 +1,276 @@
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <link rel="icon" type="image/png" sizes="1024x1024" href="./images/logo.png">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="description" content="Islamic Times">
-    <link rel="manifest" href="./manifest.json">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="1024x1024"
+      href="./images/logo.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="Islamic Times" />
+    <link rel="manifest" href="./manifest.json" />
     <title>Islamic Times App</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-    <link rel="mask-icon" href="./images/safari-pinned-tab.svg" color="#009879">
-    <link rel="shortcut icon" href="./images/favicon.ico">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-config" content="/images/browserconfig.xml">
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="./images/safari-pinned-tab.svg"
+      color="#009879"
+    />
+    <link rel="shortcut icon" href="./images/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-config" content="/images/browserconfig.xml" />
     <!-- apple splash screen -->
-    <link rel="apple-touch-icon" href="./images/splashscreens/apple-icon-180.png">
+    <link
+      rel="apple-touch-icon"
+      href="./images/splashscreens/apple-icon-180.png"
+    />
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2048-2732.jpg"
-        media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2732-2048.jpg"
-        media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1668-2388.jpg"
-        media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2388-1668.jpg"
-        media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1536-2048.jpg"
-        media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2048-1536.jpg"
-        media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1668-2224.jpg"
-        media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2224-1668.jpg"
-        media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1620-2160.jpg"
-        media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2160-1620.jpg"
-        media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1284-2778.jpg"
-        media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2778-1284.jpg"
-        media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1170-2532.jpg"
-        media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2532-1170.jpg"
-        media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1125-2436.jpg"
-        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2436-1125.jpg"
-        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1242-2688.jpg"
-        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2688-1242.jpg"
-        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-828-1792.jpg"
-        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1792-828.jpg"
-        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1242-2208.jpg"
-        media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-2208-1242.jpg"
-        media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-750-1334.jpg"
-        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1334-750.jpg"
-        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-640-1136.jpg"
-        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="./images/splashscreens/apple-splash-1136-640.jpg"
-        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2048-2732.jpg"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2732-2048.jpg"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1668-2388.jpg"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2388-1668.jpg"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1536-2048.jpg"
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2048-1536.jpg"
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1668-2224.jpg"
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2224-1668.jpg"
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1620-2160.jpg"
+      media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2160-1620.jpg"
+      media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1284-2778.jpg"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2778-1284.jpg"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1170-2532.jpg"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2532-1170.jpg"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1125-2436.jpg"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2436-1125.jpg"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1242-2688.jpg"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2688-1242.jpg"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-828-1792.jpg"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1792-828.jpg"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1242-2208.jpg"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-2208-1242.jpg"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-750-1334.jpg"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1334-750.jpg"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-640-1136.jpg"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="./images/splashscreens/apple-splash-1136-640.jpg"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+  </head>
 
-
-</head>
-
-<body>
+  <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-        <div class="main-container">
-            <!-- <input type="text" class="search" placeholder="Search..." value=""> -->
-            <!-- <div class="city">
+      <div class="main-container">
+        <!-- <input type="text" class="search" placeholder="Search..." value=""> -->
+        <!-- <div class="city">
                 <h2 class="city-name"><span>Dhaka</span><sup>BD</sup></h2>
                 <div class="city-temp">29<sup>°C</sup></div>
                 <div class="info"><img class="city-icon" src="https://openweathermap.org/img/wn/50n@2x.png" alt="haze">
                     <p>haze</p>
                 </div>
             </div> -->
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <!-- <th id="date-english">October 23, 2021</th> -->
-                        <th colspan="2"><span id="date-hijri">মঙ্গল, ১৮ রবিউল আউয়াল ১৪৪৩</span><br>
-                            <span id="date-english">27-10-2021</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="sahri-end-tr">
-                        <td>সাহরীর শেষ সময়</td>
-                        <td id="sahri-end">4:43am</td>
-                    </tr>
-                    <tr id="fajr-start-tr">
-                        <td>ফজর শুরু</td>
-                        <td id="fajr-start">4:48am</td>
-                    </tr>
-                    <tr id="sunrise-forbidden-tr">
-                        <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
-                        <td id="sunrise-forbidden">6:01am - 6:11am</td>
-                    </tr>
-                    <tr id="ishrak-tr">
-                        <td>ইশরাক শুরু</td>
-                        <td id="ishrak">6:11am</td>
-                    </tr>
-                    <tr id="noon-forbidden-tr">
-                        <td>দ্বিপ্রহর ও নামাজের নিষিদ্ধ সময়</td>
-                        <td id="noon-forbidden">11:40am - 11:46am</td>
-                    </tr>
-                    <tr id="duhr-start-tr">
-                        <td>যোহর শুরু</td>
-                        <td id="duhr-start">11:46am</td>
-                    </tr>
-                    <tr id="asr-start-tr">
-                        <td>আসর শুরু</td>
-                        <td id="asr-start">3:47pm</td>
-                    </tr>
-                    <tr id="sunset-forbidden-tr">
-                        <td>সূর্যাস্ত ও নামাজের নিষিদ্ধ সময়
-                            (ঐ দিনের আসর ব্যতীত)
-                        </td>
-                        <td id="sunset-forbidden">5:14pm - 5:24pm</td>
-                    </tr>
-                    <tr id="magrib-start-tr">
-                        <td>মাগরিব শুরু</td>
-                        <td id="magrib-start">5:27pm</td>
-                    </tr>
-                    <tr id="isha-start-tr">
-                        <td>এশা শুরু</td>
-                        <td id="isha-start">6:41pm</td>
-                    </tr>
-                    <tr id="info-tr">
-                        <td colspan="2" id="info">
-                            * হিজরি তারিখ (বাংলাদেশ ইসলামিক ফাউন্ডেশন কর্তৃক)
-                            চাঁদ দেখার উপর নির্ভরশীল।<br>
-                            * হিজরি তারিখ ও বার সূর্যাস্তের সাথে সাথে পরিবর্তন হয়।<br>
-                            <b>* নামাজের সময়ের তথ্যসূত্র-</b><br> ইসলামিক রিসার্চ সেন্টার বাংলাদেশ কর্তৃক প্রণীত
-                            সাহরী-ইফতার ও নামাজের স্থায়ী সময়সূচী (শুধুমাত্র ঢাকা জেলার জন্য)।
-                        </td>
-                    </tr>
-                    <!-- and so on... -->
-                </tbody>
-            </table>
-            <div id="mybutton">
-                <button onclick="document.location.href='mailto:jawad.asif.bd@gmail.com'"
-                    id="feedback">Feedback</button>
-            </div>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <!-- <th id="date-english">October 23, 2021</th> -->
+              <th colspan="2">
+                <span id="date-hijri">মঙ্গল, ১৮ রবিউল আউয়াল ১৪৪৩</span><br />
+                <span id="date-english">27-10-2021</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="sahri-end-tr">
+              <td>সাহরীর শেষ সময়</td>
+              <td id="sahri-end">4:43am</td>
+            </tr>
+            <tr id="fajr-start-tr">
+              <td>ফজর শুরু</td>
+              <td id="fajr-start">4:48am</td>
+            </tr>
+            <tr id="sunrise-forbidden-tr">
+              <td>সূর্যোদয় ও নামাজের নিষিদ্ধ সময়</td>
+              <td id="sunrise-forbidden">6:01am - 6:11am</td>
+            </tr>
+            <tr id="ishrak-tr">
+              <td>ইশরাক শুরু</td>
+              <td id="ishrak">6:11am</td>
+            </tr>
+            <tr id="noon-forbidden-tr">
+              <td>দ্বিপ্রহর ও নামাজের নিষিদ্ধ সময়</td>
+              <td id="noon-forbidden">11:40am - 11:46am</td>
+            </tr>
+            <tr id="duhr-start-tr">
+              <td>যোহর শুরু</td>
+              <td id="duhr-start">11:46am</td>
+            </tr>
+            <tr id="asr-start-tr">
+              <td>আসর শুরু</td>
+              <td id="asr-start">3:47pm</td>
+            </tr>
+            <tr id="sunset-forbidden-tr">
+              <td>সূর্যাস্ত ও নামাজের নিষিদ্ধ সময় (ঐ দিনের আসর ব্যতীত)</td>
+              <td id="sunset-forbidden">5:14pm - 5:24pm</td>
+            </tr>
+            <tr id="magrib-start-tr">
+              <td>মাগরিব শুরু</td>
+              <td id="magrib-start">5:27pm</td>
+            </tr>
+            <tr id="isha-start-tr">
+              <td>এশা শুরু</td>
+              <td id="isha-start">6:41pm</td>
+            </tr>
+            <tr id="info-tr">
+              <td colspan="2" id="info">
+                * হিজরি তারিখ (বাংলাদেশ ইসলামিক ফাউন্ডেশন কর্তৃক) চাঁদ দেখার উপর
+                নির্ভরশীল।<br />
+                * হিজরি তারিখ ও বার সূর্যাস্তের সাথে সাথে পরিবর্তন হয়।<br />
+                <b>* নামাজের সময়ের তথ্যসূত্র-</b><br />
+                ইসলামিক রিসার্চ সেন্টার বাংলাদেশ কর্তৃক প্রণীত সাহরী-ইফতার ও
+                নামাজের স্থায়ী সময়সূচী (শুধুমাত্র ঢাকা জেলার জন্য)।
+              </td>
+            </tr>
+            <!-- and so on... -->
+          </tbody>
+        </table>
+        <div id="mybutton">
+          <button
+            onclick="document.location.href='mailto:jawad.asif.bd@gmail.com?subject=Islamic+Times+PWA+Feedback'"
+            id="feedback"
+          >
+            Feedback
+          </button>
         </div>
+      </div>
     </div>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('serviceworker.js')
-                    .then((reg) => console.log('Success: ', reg.scope))
-                    .catch((err) => console.log('Failure: ', err));
-            })
-        }
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("serviceworker.js")
+            .then((reg) => console.log("Success: ", reg.scope))
+            .catch((err) => console.log("Failure: ", err));
+        });
+      }
     </script>
     <script type="text/javascript" src="SalatTimeTable24.minify.json"></script>
     <script type="text/javascript" src="english_hijri_mapping.json"></script>
@@ -173,7 +278,5 @@
     <!-- <script src="/static/js/bundle.js"></script>
     <script src="/static/js/0.chunk.js"></script>
     <script src="/static/js/main.chunk.js"></script> -->
-
-</body>
-
+  </body>
 </html>
