@@ -1,5 +1,5 @@
 {
-  "name": "weather_app_static",
+  "name": "islamic-times-pwa",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -14,7 +14,6 @@
     "browser-sync": "^2.27.5",
     "cssnano": "^5.0.8",
     "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
     "gulp-replace": "^1.1.3",
     "gulp-sass": "^5.0.0",
     "gulp-terser": "^2.1.0",

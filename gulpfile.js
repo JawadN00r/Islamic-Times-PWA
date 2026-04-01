@@ -3,7 +3,6 @@
 const { src, dest, watch, series, parallel } = require('gulp');
 // Importing all the Gulp-related packages we want to use
 const sass = require('gulp-sass')(require('sass'));
-const concat = require('gulp-concat');
 const terser = require('gulp-terser');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
@@ -27,7 +26,7 @@ const files = {
         // 'package-lock.json',
         'favicon_package/**/*.*',
         'manifest.json',
-        'SalatTimeTable24.minify.json',
+        'SalatTimeTable24.json',
         'english_hijri_mapping.json',
         'serviceworker.js'
     ]

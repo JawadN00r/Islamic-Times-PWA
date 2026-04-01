@@ -5,13 +5,15 @@ const FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE = 3;
 const FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE = -13;
 const SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE = -3;
 
-const defaultDate = new Date().toDateString() + " ";
-const salatTimeTable24 = JSON.parse(salat_time_data);
-const english_hijri_mappings = JSON.parse(english_hijri_mapping);
+// Use explicit date construction instead of string parsing for cross-platform safety
+function createTimeDate(hours, minutes) {
+  var d = new Date();
+  d.setHours(hours, minutes, 0, 0);
+  return d;
+}
 
 function addMinutes(hours, minutes, minsToAdd) {
-  var time = "" + hours + ":" + minutes;
-  time = new Date(defaultDate + time);
+  var time = createTimeDate(hours, minutes);
   time = new Date(time.getTime() + minsToAdd * 60000);
   return formatAMPM(time.getHours(), time.getMinutes());
 }
@@ -87,11 +89,10 @@ function getHijriMonthName(monthNo) {
   return monthName;
 }
 
-function getCurrentDayName() {
+function getCurrentDayName(salatTimeToday) {
   let dayName = "";
   let dayNo = new Date().getDay();
-  // +1 after sunset
-  if (isNowAfterSunset()) {
+  if (isNowAfterSunset(salatTimeToday)) {
     dayNo = (dayNo + 1) % 7;
   }
   switch (dayNo) {
@@ -120,7 +121,7 @@ function getCurrentDayName() {
   return dayName;
 }
 
-function getCurrentHijriDate() {
+function getCurrentHijriDate(english_hijri_mappings, salatTimeToday) {
   let english_date = english_hijri_mappings["english_date"];
   let english_month = english_hijri_mappings["english_month"];
   let english_year = english_hijri_mappings["english_year"];
@@ -139,7 +140,7 @@ function getCurrentHijriDate() {
   hijri_date += day;
 
   // +1 after sunset
-  if (isNowAfterSunset()) {
+  if (isNowAfterSunset(salatTimeToday)) {
     hijri_date += 1;
   }
 
@@ -165,25 +166,17 @@ function getCurrentHijriDate() {
   return "" + hijri_date + " " + hijri_month + " " + hijri_year;
 }
 
-function isNowAfterSunset() {
+function isNowAfterSunset(salatTimeToday) {
   let now = new Date();
   let hour = salatTimeToday["magribStartHour"];
   let minute = salatTimeToday["magribStartMinute"];
-  let sunset_time = "" + hour + ":" + minute;
-  sunset_time = new Date(defaultDate + sunset_time);
+  var sunset_time = createTimeDate(hour, minute);
   sunset_time = new Date(
     sunset_time.getTime() + SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE * 60000
   );
 
-  let nowTimeInDefaultDate = new Date(
-    defaultDate + now.getHours() + ":" + now.getMinutes()
-  );
-
-  if (nowTimeInDefaultDate >= sunset_time) {
-    return true;
-  } else {
-    return false;
-  }
+  var nowTime = createTimeDate(now.getHours(), now.getMinutes());
+  return nowTime >= sunset_time;
 }
 
 function getCurrentEnglishDate() {
@@ -193,84 +186,89 @@ function getCurrentEnglishDate() {
   );
 }
 
-let day = getDateIndex();
-const salatTimeToday = salatTimeTable24[day];
+function renderPrayerTimes(salatTimeTable24, english_hijri_mappings) {
+  let day = getDateIndex();
+  const salatTimeToday = salatTimeTable24[day];
 
-var hour, minute, time, timeStart, timeEnd;
-// date-hijri
-var hirji_date_today = getCurrentHijriDate();
-document.getElementById("date-hijri").innerHTML =
-  getCurrentDayName() + ", " + hirji_date_today;
+  var hour, minute, time, timeStart, timeEnd;
 
-// date-english
-document.getElementById("date-english").innerHTML =
-  "(" + getCurrentEnglishDate() + ")";
+  var hirji_date_today = getCurrentHijriDate(english_hijri_mappings, salatTimeToday);
+  document.getElementById("date-hijri").innerHTML =
+    getCurrentDayName(salatTimeToday) + ", " + hirji_date_today;
 
-// sahri-end
-hour = salatTimeToday["sahriEndHour"];
-minute = salatTimeToday["sahriEndMinute"];
-time = formatAMPM(hour, minute);
-document.getElementById("sahri-end").innerHTML = time;
+  document.getElementById("date-english").innerHTML =
+    "(" + getCurrentEnglishDate() + ")";
 
-// fajr start
-hour = salatTimeToday["sahriEndHour"];
-minute = salatTimeToday["sahriEndMinute"];
-time = addMinutes(hour, minute, FAJR_START_AFTER_SAHRI_IN_MINUTE);
-document.getElementById("fajr-start").innerHTML = time;
+  hour = salatTimeToday["sahriEndHour"];
+  minute = salatTimeToday["sahriEndMinute"];
+  time = formatAMPM(hour, minute);
+  document.getElementById("sahri-end").innerHTML = time;
 
-//sunrise-forbidden
-hour = salatTimeToday["sunriseHour"];
-minute = salatTimeToday["sunriseMinute"];
-timeStart = formatAMPM(hour, minute);
-timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_AFTER_SUNRISE_IN_MINUTE);
-time = timeStart + " - " + timeEnd;
-document.getElementById("sunrise-forbidden").innerHTML = time;
+  hour = salatTimeToday["sahriEndHour"];
+  minute = salatTimeToday["sahriEndMinute"];
+  time = addMinutes(hour, minute, FAJR_START_AFTER_SAHRI_IN_MINUTE);
+  document.getElementById("fajr-start").innerHTML = time;
 
-// ishrak
-time = timeEnd;
-document.getElementById("ishrak").innerHTML = time;
+  hour = salatTimeToday["sunriseHour"];
+  minute = salatTimeToday["sunriseMinute"];
+  timeStart = formatAMPM(hour, minute);
+  timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_AFTER_SUNRISE_IN_MINUTE);
+  time = timeStart + " - " + timeEnd;
+  document.getElementById("sunrise-forbidden").innerHTML = time;
 
-//noon-forbidden
-hour = salatTimeToday["noonHour"];
-minute = salatTimeToday["noonMinute"];
-timeStart = addMinutes(
-  hour,
-  minute,
-  FORBIDDEN_TIME_START_BEFORE_NOON_IN_MINUTE
-);
-timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE);
-time = timeStart + " - " + timeEnd;
-document.getElementById("noon-forbidden").innerHTML = time;
+  time = timeEnd;
+  document.getElementById("ishrak").innerHTML = time;
 
-//duhr-start
-document.getElementById("duhr-start").innerHTML = timeEnd;
+  hour = salatTimeToday["noonHour"];
+  minute = salatTimeToday["noonMinute"];
+  timeStart = addMinutes(
+    hour,
+    minute,
+    FORBIDDEN_TIME_START_BEFORE_NOON_IN_MINUTE
+  );
+  timeEnd = addMinutes(hour, minute, FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE);
+  time = timeStart + " - " + timeEnd;
+  document.getElementById("noon-forbidden").innerHTML = time;
 
-//asr-start
-hour = salatTimeToday["asrStartHour"];
-minute = salatTimeToday["asrStartMinute"];
-time = formatAMPM(hour, minute);
-document.getElementById("asr-start").innerHTML = time;
+  document.getElementById("duhr-start").innerHTML = timeEnd;
 
-//sunset-forbidden
-hour = salatTimeToday["magribStartHour"];
-minute = salatTimeToday["magribStartMinute"];
-timeStart = addMinutes(
-  hour,
-  minute,
-  FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE
-);
-timeEnd = addMinutes(hour, minute, SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE);
-time = timeStart + " - " + timeEnd;
-document.getElementById("sunset-forbidden").innerHTML = time;
+  hour = salatTimeToday["asrStartHour"];
+  minute = salatTimeToday["asrStartMinute"];
+  time = formatAMPM(hour, minute);
+  document.getElementById("asr-start").innerHTML = time;
 
-//magrib-start
-hour = salatTimeToday["magribStartHour"];
-minute = salatTimeToday["magribStartMinute"];
-time = formatAMPM(hour, minute);
-document.getElementById("magrib-start").innerHTML = time;
+  hour = salatTimeToday["magribStartHour"];
+  minute = salatTimeToday["magribStartMinute"];
+  timeStart = addMinutes(
+    hour,
+    minute,
+    FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE
+  );
+  timeEnd = addMinutes(hour, minute, SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE);
+  time = timeStart + " - " + timeEnd;
+  document.getElementById("sunset-forbidden").innerHTML = time;
 
-//isha-start
-hour = salatTimeToday["ishaStartHour"];
-minute = salatTimeToday["ishaStartMinute"];
-time = formatAMPM(hour, minute);
-document.getElementById("isha-start").innerHTML = time;
+  hour = salatTimeToday["magribStartHour"];
+  minute = salatTimeToday["magribStartMinute"];
+  time = formatAMPM(hour, minute);
+  document.getElementById("magrib-start").innerHTML = time;
+
+  hour = salatTimeToday["ishaStartHour"];
+  minute = salatTimeToday["ishaStartMinute"];
+  time = formatAMPM(hour, minute);
+  document.getElementById("isha-start").innerHTML = time;
+}
+
+// Fetch data and render - called on load and on SW update
+function loadDataAndRender() {
+  Promise.all([
+    fetch("SalatTimeTable24.json").then(function (r) { return r.json(); }),
+    fetch("english_hijri_mapping.json").then(function (r) { return r.json(); })
+  ]).then(function (results) {
+    renderPrayerTimes(results[0], results[1]);
+  }).catch(function (err) {
+    console.error("Failed to load prayer data:", err);
+  });
+}
+
+loadDataAndRender();
