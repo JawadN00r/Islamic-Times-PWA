@@ -4,6 +4,25 @@ const FORBIDDEN_TIME_START_BEFORE_NOON_IN_MINUTE = -3;
 const FORBIDDEN_TIME_END_AFTER_NOON_IN_MINUTE = 3;
 const FORBIDDEN_TIME_START_BEFORE_MAGHRIB_IN_MINUTE = -13;
 const SUNSET_TIME_BEFORE_MAGHRIB_IN_MINUTE = -3;
+const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+
+var appState = {
+  salatTimeTable24: null,
+  englishHijriMappings: null,
+  selectedDate: normalizeDate(new Date())
+};
+
+function normalizeDate(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function isSameDate(firstDate, secondDate) {
+  return normalizeDate(firstDate).getTime() === normalizeDate(secondDate).getTime();
+}
+
+function padNumber(value) {
+  return value < 10 ? "0" + value : "" + value;
+}
 
 // Use explicit date construction instead of string parsing for cross-platform safety
 function createTimeDate(hours, minutes) {
@@ -27,19 +46,17 @@ function formatAMPM(hours, minutes) {
   return strTime;
 }
 
-function getDateIndex() {
-  let now = new Date();
-  let start = new Date(now.getFullYear(), 0, 0);
+function getDateIndex(targetDate) {
+  let start = new Date(targetDate.getFullYear(), 0, 0);
   let diff =
-    now -
+    targetDate -
     start +
-    (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
-  let oneDay = 1000 * 60 * 60 * 24;
-  let day = Math.floor(diff / oneDay);
+    (start.getTimezoneOffset() - targetDate.getTimezoneOffset()) * 60 * 1000;
+  let day = Math.floor(diff / MILLISECONDS_IN_DAY);
 
   // check leap year
-  const isLeapYear = new Date(now.getFullYear(), 1, 29).getMonth() == 1;
-  if (isLeapYear || now.getMonth() < 2) {
+  const isLeapYear = new Date(targetDate.getFullYear(), 1, 29).getMonth() == 1;
+  if (isLeapYear || targetDate.getMonth() < 2) {
     return day - 1;
   } else {
     return day;
@@ -89,12 +106,8 @@ function getHijriMonthName(monthNo) {
   return monthName;
 }
 
-function getCurrentDayName(salatTimeToday) {
+function getDayName(dayNo) {
   let dayName = "";
-  let dayNo = new Date().getDay();
-  if (isNowAfterSunset(salatTimeToday)) {
-    dayNo = (dayNo + 1) % 7;
-  }
   switch (dayNo) {
     case 0:
       dayName = "রবি";
@@ -121,7 +134,15 @@ function getCurrentDayName(salatTimeToday) {
   return dayName;
 }
 
-function getCurrentHijriDate(english_hijri_mappings, salatTimeToday) {
+function getDayNameForDate(selectedDate, shouldAdvanceDay) {
+  let dayNo = selectedDate.getDay();
+  if (shouldAdvanceDay) {
+    dayNo = (dayNo + 1) % 7;
+  }
+  return getDayName(dayNo);
+}
+
+function getHijriDateForDate(english_hijri_mappings, selectedDate, shouldAdvanceDay) {
   let english_date = english_hijri_mappings["english_date"];
   let english_month = english_hijri_mappings["english_month"];
   let english_year = english_hijri_mappings["english_year"];
@@ -129,33 +150,30 @@ function getCurrentHijriDate(english_hijri_mappings, salatTimeToday) {
   let hijri_month = english_hijri_mappings["hijri_month"];
   let hijri_year = english_hijri_mappings["hijri_year"];
 
-  let now = new Date();
   let start = new Date(english_year, english_month - 1, english_date);
   let diff =
-    now -
+    selectedDate -
     start +
-    (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
-  let oneDay = 1000 * 60 * 60 * 24;
-  let day = Math.floor(diff / oneDay);
+    (start.getTimezoneOffset() - selectedDate.getTimezoneOffset()) * 60 * 1000;
+  let day = Math.floor(diff / MILLISECONDS_IN_DAY);
   hijri_date += day;
 
-  // +1 after sunset
-  if (isNowAfterSunset(salatTimeToday)) {
+  if (shouldAdvanceDay) {
     hijri_date += 1;
   }
 
-  // check if hijri date > 30 i.e., new month
-  if (hijri_date > 30) {
-    hijri_date = hijri_date % 30;
+  while (hijri_date > 30) {
+    hijri_date -= 30;
     hijri_month += 1;
-    // if month > 12, rotate
     if (hijri_month > 12) {
-      hijri_month = hijri_month % 12;
+      hijri_month = 1;
+      hijri_year += 1;
     }
-  } else if (hijri_date == 0) {
-    hijri_date = 30;
+  }
+
+  while (hijri_date < 1) {
+    hijri_date += 30;
     hijri_month -= 1;
-    // if month < 1, rotate
     if (hijri_month < 1) {
       hijri_month = 12;
       hijri_year -= 1;
@@ -179,25 +197,42 @@ function isNowAfterSunset(salatTimeToday) {
   return nowTime >= sunset_time;
 }
 
-function getCurrentEnglishDate() {
-  let date = new Date();
+function getEnglishDateLabel(selectedDate) {
   return (
-    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+    padNumber(selectedDate.getDate()) +
+    "-" +
+    padNumber(selectedDate.getMonth() + 1) +
+    "-" +
+    selectedDate.getFullYear()
   );
 }
 
-function renderPrayerTimes(salatTimeTable24, english_hijri_mappings) {
-  let day = getDateIndex();
+function updateNavigationState() {
+  let todayButton = document.getElementById("nav-today");
+  let isTodaySelected = isSameDate(appState.selectedDate, new Date());
+
+  todayButton.disabled = isTodaySelected;
+  todayButton.setAttribute("aria-current", isTodaySelected ? "date" : "false");
+}
+
+function renderPrayerTimes(salatTimeTable24, english_hijri_mappings, selectedDate) {
+  let day = getDateIndex(selectedDate);
   const salatTimeToday = salatTimeTable24[day];
+  const shouldAdvanceDay =
+    isSameDate(selectedDate, new Date()) && isNowAfterSunset(salatTimeToday);
 
   var hour, minute, time, timeStart, timeEnd;
 
-  var hirji_date_today = getCurrentHijriDate(english_hijri_mappings, salatTimeToday);
-  document.getElementById("date-hijri").innerHTML =
-    getCurrentDayName(salatTimeToday) + ", " + hirji_date_today;
+  var hirji_date_today = getHijriDateForDate(
+    english_hijri_mappings,
+    selectedDate,
+    shouldAdvanceDay
+  );
+  document.getElementById("date-hijri").textContent =
+    getDayNameForDate(selectedDate, shouldAdvanceDay) + ", " + hirji_date_today;
 
-  document.getElementById("date-english").innerHTML =
-    "(" + getCurrentEnglishDate() + ")";
+  document.getElementById("date-english").textContent =
+    "(" + getEnglishDateLabel(selectedDate) + ")";
 
   hour = salatTimeToday["sahriEndHour"];
   minute = salatTimeToday["sahriEndMinute"];
@@ -257,6 +292,50 @@ function renderPrayerTimes(salatTimeTable24, english_hijri_mappings) {
   minute = salatTimeToday["ishaStartMinute"];
   time = formatAMPM(hour, minute);
   document.getElementById("isha-start").innerHTML = time;
+
+  updateNavigationState();
+}
+
+function renderSelectedDate() {
+  if (!appState.salatTimeTable24 || !appState.englishHijriMappings) {
+    return;
+  }
+
+  renderPrayerTimes(
+    appState.salatTimeTable24,
+    appState.englishHijriMappings,
+    appState.selectedDate
+  );
+}
+
+function shiftSelectedDate(dayOffset) {
+  let nextDate = new Date(appState.selectedDate);
+  nextDate.setDate(nextDate.getDate() + dayOffset);
+  appState.selectedDate = normalizeDate(nextDate);
+  renderSelectedDate();
+}
+
+function goToToday() {
+  appState.selectedDate = normalizeDate(new Date());
+  renderSelectedDate();
+}
+
+function initDateNavigation() {
+  document
+    .getElementById("nav-prev-day")
+    .addEventListener("click", function () {
+      shiftSelectedDate(-1);
+    });
+
+  document
+    .getElementById("nav-next-day")
+    .addEventListener("click", function () {
+      shiftSelectedDate(1);
+    });
+
+  document.getElementById("nav-today").addEventListener("click", function () {
+    goToToday();
+  });
 }
 
 // Fetch data and render - called on load and on SW update
@@ -265,10 +344,13 @@ function loadDataAndRender() {
     fetch("SalatTimeTable24.json").then(function (r) { return r.json(); }),
     fetch("english_hijri_mapping.json").then(function (r) { return r.json(); })
   ]).then(function (results) {
-    renderPrayerTimes(results[0], results[1]);
+    appState.salatTimeTable24 = results[0];
+    appState.englishHijriMappings = results[1];
+    renderSelectedDate();
   }).catch(function (err) {
     console.error("Failed to load prayer data:", err);
   });
 }
 
+initDateNavigation();
 loadDataAndRender();
