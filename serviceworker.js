@@ -23,6 +23,20 @@ const dataFiles = [
 
 const self = this;
 
+function isDataFileRequest(requestUrl) {
+    return dataFiles.some(function (filePath) {
+        return requestUrl.pathname.endsWith(filePath);
+    });
+}
+
+function notifyDataUpdated() {
+    return self.clients.matchAll().then(function (clients) {
+        clients.forEach(function (client) {
+            client.postMessage({ type: 'DATA_UPDATED' });
+        });
+    });
+}
+
 // Install SW
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -39,24 +53,44 @@ self.addEventListener('install', (event) => {
 
 // stale while revalidate - notify clients when data files are updated
 self.addEventListener('fetch', function (event) {
+    var requestUrl = new URL(event.request.url);
+    var isHttpRequest = requestUrl.protocol === 'http:' || requestUrl.protocol === 'https:';
+    var isSameOriginRequest = requestUrl.origin === self.location.origin;
+
+    if (event.request.method !== 'GET' || !isHttpRequest || !isSameOriginRequest) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     event.respondWith(
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.match(event.request).then(function (response) {
+                var isDataFile = isDataFileRequest(requestUrl);
                 var fetchPromise = fetch(event.request).then(function (networkResponse) {
-                    cache.put(event.request, networkResponse.clone());
-                    // Notify all clients when data files are updated
-                    var requestUrl = new URL(event.request.url);
-                    var isDataFile = dataFiles.some(function (f) {
-                        return requestUrl.pathname.endsWith(f);
-                    });
-                    if (isDataFile && response) {
-                        self.clients.matchAll().then(function (clients) {
-                            clients.forEach(function (client) {
-                                client.postMessage({ type: 'DATA_UPDATED' });
-                            });
-                        });
+                    if (!isDataFile || !response || !networkResponse.ok) {
+                        cache.put(event.request, networkResponse.clone());
+                        return networkResponse;
                     }
-                    return networkResponse;
+
+                    return Promise.all([
+                        response.clone().text(),
+                        networkResponse.clone().text()
+                    ]).then(function (bodies) {
+                        cache.put(event.request, networkResponse.clone());
+                        if (bodies[0] !== bodies[1]) {
+                            return notifyDataUpdated().then(function () {
+                                return networkResponse;
+                            });
+                        }
+
+                        return networkResponse;
+                    });
+                }).catch(function (error) {
+                    if (response) {
+                        return response;
+                    }
+
+                    throw error;
                 });
                 return response || fetchPromise;
             });
