@@ -22,10 +22,11 @@ A Progressive Web App (PWA) displaying Islamic prayer times (Salat) for Dhaka, B
 ## Conventions
 - Prayer times are calculated from base times + minute offsets (constants at top of index.js)
 - Hijri dates advance at sunset (maghrib time minus 3 minutes)
-- All UI text is in Bengali
+- Prayer-time table labels and date strings are in Bengali; keep new user-facing text consistent with the surrounding UI instead of introducing random English labels
 - Date construction uses `new Date().setHours()` — never use string-based `new Date("datestring")` parsing (cross-platform incompatible)
 - Data files are pure JSON — never wrap in JS variable assignments
-- Service worker notifies clients via `postMessage({ type: 'DATA_UPDATED' })` when network fetch updates cached data
+- Service worker should only cache same-origin HTTP(S) `GET` requests — never attempt to cache `POST`, `chrome-extension://`, or other unsupported request schemes
+- Service worker should only notify clients via `postMessage({ type: 'DATA_UPDATED' })` when the JSON data content actually changes, otherwise it can create a client refresh/fetch loop
 
 ## Important Notes
 - `english_hijri_mapping.json` must be manually updated when Hijri calendar corrections occur (moon sighting based)
