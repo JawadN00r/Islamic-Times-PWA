@@ -1,4 +1,4 @@
-const CACHE_NAME = "version-2";
+const CACHE_NAME = "version-3";
 const assetsToCache = [
     '/',
     '/SalatTimeTable24.json',
@@ -43,10 +43,10 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME)
             .then((cache) => {
                 console.log('Opened cache');
-
                 return cache.addAll(assetsToCache);
             })
-    )
+            .then(() => self.skipWaiting())
+    );
 });
 
 // Listen for requests
@@ -66,14 +66,18 @@ self.addEventListener('fetch', function (event) {
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.match(event.request).then(function (response) {
                 var isDataFile = isDataFileRequest(requestUrl);
+                // Clone BEFORE the body is consumed by event.respondWith so we
+                // can still read the text for comparison inside fetchPromise.
+                var cachedBodyClone = (isDataFile && response) ? response.clone() : null;
+
                 var fetchPromise = fetch(event.request).then(function (networkResponse) {
-                    if (!isDataFile || !response || !networkResponse.ok) {
+                    if (!isDataFile || !cachedBodyClone || !networkResponse.ok) {
                         cache.put(event.request, networkResponse.clone());
                         return networkResponse;
                     }
 
                     return Promise.all([
-                        response.clone().text(),
+                        cachedBodyClone.text(),
                         networkResponse.clone().text()
                     ]).then(function (bodies) {
                         cache.put(event.request, networkResponse.clone());
@@ -100,17 +104,17 @@ self.addEventListener('fetch', function (event) {
 
 // Activate the SW
 self.addEventListener('activate', (event) => {
-    const cacheWhitelist = [];
-    cacheWhitelist.push(CACHE_NAME);
+    const cacheWhitelist = [CACHE_NAME];
 
     event.waitUntil(
-        caches.keys().then((cacheNames) => Promise.all(
-            cacheNames.map((cacheName) => {
-                if (!cacheWhitelist.includes(cacheName)) {
-                    return caches.delete(cacheName);
-                }
-            })
-        ))
-
-    )
+        caches.keys()
+            .then((cacheNames) => Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (!cacheWhitelist.includes(cacheName)) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            ))
+            .then(() => self.clients.claim())
+    );
 });
